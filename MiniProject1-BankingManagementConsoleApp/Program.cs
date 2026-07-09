@@ -1,10 +1,9 @@
-﻿namespace MiniProject1_BankingManagementConsoleApp
+﻿using System.Xml.Linq;
+
+namespace MiniProject1_BankingManagementConsoleApp
 {
     internal class Program
     {
-        // Shared data storage - declared at class level (static) so that
-        // EVERY function below can read and modify the same three lists
-        // without needing them passed in as parameters.
         static List<string> customerNames = new List<string>();
         static List<string> accountNumbers = new List<string>();
         static List<double> balances = new List<double>();
@@ -34,22 +33,23 @@
                     Console.WriteLine("Invalid input. Please enter a number from 1 to 8.");
                     continue; // skip the rest of this loop pass, show the menu again
                 }
+
                 switch (choice)
                 {
                     case 1:
                         AddAccount();
                         break;
                     case 2:
-                        DepositMoney();
+                        //DepositMoney();
                         break;
                     case 3:
-                        WithdrawMoney();
+                        //WithdrawMoney();
                         break;
                     case 4:
-                        ShowBalance();
+                        //ShowBalance();
                         break;
                     case 5:
-                        TransferAmount();
+                        //TransferAmount();
                         break;
                     case 6:
                         // TODO: call your first custom service function here
@@ -67,33 +67,69 @@
                 }
             }
         }
-        // ===================== SERVICE FUNCTIONS =====================
-        // Each function owns ONE service end-to-end: it asks the user for
-        // whatever it needs, validates it, updates the shared lists, and
-        // prints the outcome. Main never reads input or prints results
-        // for these services - it only shows the menu and calls them.
+        //// ===================== SERVICE FUNCTIONS =====================
+        //// Each function owns ONE service end-to-end: it asks the user for
+        //// whatever it needs, validates it, updates the shared lists, and
+        //// prints the outcome. Main never reads input or prints results
+        //// for these services - it only shows the menu and calls them.
         static void AddAccount()
         {
-            // TODO: implement this service (see Section 3 requirements)
+            Console.WriteLine("Enter your name");
+            string customerName = Console.ReadLine();
+
+            Console.WriteLine("Enter your Account number");
+            string customerAccount = Console.ReadLine();
+
+            if (accountNumbers.Contains(customerAccount))
+            {
+                Console.WriteLine("The account number is already exist");
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Add an initial deposit amount to open your accoun: ");
+                double initialAmount = Convert.ToDouble(Console.ReadLine());
+
+                if (initialAmount < 0)
+                {
+                    Console.WriteLine("The amount cannot be negative.");
+                    return;
+                }
+
+                customerNames.Add(customerName);
+                accountNumbers.Add(customerAccount); 
+                balances.Add(initialAmount);
+
+                Console.WriteLine($"Account successfully created for {customerName}!");
+                Console.WriteLine($"Account Number: {customerAccount} with balance: {initialAmount}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid amount input");
+            }
         }
-        static void DepositMoney()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        static void WithdrawMoney()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        static void ShowBalance()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        static void TransferAmount()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        // TODO: write two more void, no-parameter functions here for
-        // your own custom services (option 6 and option 7)
+
+        //static void DepositMoney()
+        //{
+            
+
+        //}
+
+        //static void WithdrawMoney()
+        //{
+        //    // TODO: implement this service (see Section 3 requirements)
+        //}
+        //static void ShowBalance()
+        //{
+        //    // TODO: implement this service (see Section 3 requirements)
+        //}
+        //static void TransferAmount()
+        //{
+        //    // TODO: implement this service (see Section 3 requirements)
+        //}
+        //// TODO: write two more void, no-parameter functions here for
+        //// your own custom services (option 6 and option 7)
     }
 }
 
