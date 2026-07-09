@@ -43,7 +43,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         DepositMoney();
                         break;
                     case 3:
-                        //WithdrawMoney();
+                        WithdrawMoney();
                         break;
                     case 4:
                         //ShowBalance();
@@ -145,10 +145,46 @@ namespace MiniProject1_BankingManagementConsoleApp
 
         }
 
-        //static void WithdrawMoney()
-        //{
-        //    // TODO: implement this service (see Section 3 requirements)
-        //}
+        static void WithdrawMoney()
+        {
+            Console.Write("Enter Account Number: ");
+            string customerAccount = Console.ReadLine();
+
+            int index = accountNumbers.IndexOf(customerAccount);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Account number not found.");
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Enter withdrow amount: ");
+                double withdrowAmount = Convert.ToDouble(Console.ReadLine());
+
+                if (withdrowAmount < 0)
+                {
+                    Console.WriteLine("The amount cannot be negative.");
+                    return;
+                }
+                else if (balances[index] < withdrowAmount)
+                {
+                    Console.WriteLine("The amount cannot be more than your balance.");
+                    return;
+                }
+
+                balances[index] -= withdrowAmount;
+                Console.WriteLine("Deposit Successful! New Balance: " + balances[index]);
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid amount input");
+            }
+        }
+
+
         //static void ShowBalance()
         //{
         //    // TODO: implement this service (see Section 3 requirements)
