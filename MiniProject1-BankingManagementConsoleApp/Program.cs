@@ -20,7 +20,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                 Console.WriteLine("4. Show Balance");
                 Console.WriteLine("5. Transfer Amount");
                 Console.WriteLine("6. List of all accounts");
-                Console.WriteLine("7. <your 2nd custom service - choose a name>");
+                Console.WriteLine("7. Find Richest Customer");
                 Console.WriteLine("8. Exit");
                 Console.Write("Choose an option: ");
                 int choice;
@@ -55,7 +55,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         ListAllAccounts();
                         break;
                     case 7:
-                        // TODO: call your second custom service function here
+                        RichestCustomer();
                         break;
                     case 8:
                         exitApp = true;
@@ -68,10 +68,6 @@ namespace MiniProject1_BankingManagementConsoleApp
             }
         }
         //// ===================== SERVICE FUNCTIONS =====================
-        //// Each function owns ONE service end-to-end: it asks the user for
-        //// whatever it needs, validates it, updates the shared lists, and
-        //// prints the outcome. Main never reads input or prints results
-        //// for these services - it only shows the menu and calls them.
         static void AddAccount()
         {
             Console.WriteLine("Enter your name");
@@ -198,7 +194,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                 return;
             }
 
-            Console.WriteLine("--- Account Details ---");
+            Console.WriteLine("\n--- Account Details ---");
             Console.WriteLine($"Account Name: {customerNames[index]}!");
             Console.WriteLine($"Account Number: {customerAccount}");
             Console.WriteLine($"Your balance is: {balances[index]}");
@@ -249,7 +245,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                 balances[receverIndex] += transferAmount;
 
                 // Display the result 
-                Console.WriteLine("---Transfer Successful!---");
+                Console.WriteLine("\n---Transfer Successful!---");
                 Console.WriteLine("The sender new balance is: " + balances[senderIndex]);
                 Console.WriteLine("The resever new balance is: " + balances[receverIndex]);
 
@@ -269,16 +265,38 @@ namespace MiniProject1_BankingManagementConsoleApp
                 return;
             }
 
-            Console.WriteLine("--- List of All Registered Accounts ---");
+            Console.WriteLine("\n---List of All Registered Accounts---");
             for (int i = 0; i < customerNames.Count; i++)
             {
                 Console.WriteLine($"{i + 1}- Customer name: {customerNames[i]} | Account No.: {accountNumbers[i]} | Balance: {balances[i]}");
             }
         }
-        //static void  RichestCustomer()
-        //{
+        static void RichestCustomer()
+        {
+            if (customerNames.Count == 0)
+            {
+                Console.WriteLine("No accounts registered yet.");
+                return;
+            }
 
-        //}
+            //Discover the highest balance 
+            double maxBalance = balances[0];
+            int Index = 0;
+
+            for (int i = 1; i < balances.Count; i++)
+            {
+                if (balances[i] > maxBalance)
+                {
+                    maxBalance = balances[i];
+                    Index = i;
+                }
+            }
+
+            // Display the highest balance
+            Console.WriteLine("\n---Richest Customer---");
+            Console.WriteLine($"Name: {customerNames[Index]} | Account No.: {accountNumbers[Index]} | Balance: {balances[Index]}");
+        
+        }
     }
 }
 
