@@ -19,7 +19,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                 Console.WriteLine("3. Withdraw Money");
                 Console.WriteLine("4. Show Balance");
                 Console.WriteLine("5. Transfer Amount");
-                Console.WriteLine("6. <your 1st custom service - choose a name>");
+                Console.WriteLine("6. List of all accounts");
                 Console.WriteLine("7. <your 2nd custom service - choose a name>");
                 Console.WriteLine("8. Exit");
                 Console.Write("Choose an option: ");
@@ -52,7 +52,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         TransferAmount();
                         break;
                     case 6:
-                        // TODO: call your first custom service function here
+                        ListAllAccounts();
                         break;
                     case 7:
                         // TODO: call your second custom service function here
@@ -261,8 +261,24 @@ namespace MiniProject1_BankingManagementConsoleApp
             }
 
         }
-        //// TODO: write two more void, no-parameter functions here for
-        //// your own custom services (option 6 and option 7)
+        static void ListAllAccounts()
+        {
+            if (customerNames.Count == 0)
+            {
+                Console.WriteLine("No accounts registered yet.");
+                return;
+            }
+
+            Console.WriteLine("--- List of All Registered Accounts ---");
+            for (int i = 0; i < customerNames.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}- Customer name: {customerNames[i]} | Account No.: {accountNumbers[i]} | Balance: {balances[i]}");
+            }
+        }
+        //static void  RichestCustomer()
+        //{
+
+        //}
     }
 }
 
