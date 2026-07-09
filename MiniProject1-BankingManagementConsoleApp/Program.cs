@@ -46,7 +46,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         WithdrawMoney();
                         break;
                     case 4:
-                        //ShowBalance();
+                        ShowBalance();
                         break;
                     case 5:
                         //TransferAmount();
@@ -185,10 +185,25 @@ namespace MiniProject1_BankingManagementConsoleApp
         }
 
 
-        //static void ShowBalance()
-        //{
-        //    // TODO: implement this service (see Section 3 requirements)
-        //}
+        static void ShowBalance()
+        {
+            Console.Write("Enter your account number: ");
+            string customerAccount = Console.ReadLine();
+
+            int index = accountNumbers.IndexOf(customerAccount);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Account number not found.");
+                return;
+            }
+
+            Console.WriteLine("--- Account Details ---");
+            Console.WriteLine($"Account Name: {customerNames[index]}!");
+            Console.WriteLine($"Account Number: {customerAccount}");
+            Console.WriteLine($"Your balance is: {balances[index]}");
+        }
+
         //static void TransferAmount()
         //{
         //    // TODO: implement this service (see Section 3 requirements)
