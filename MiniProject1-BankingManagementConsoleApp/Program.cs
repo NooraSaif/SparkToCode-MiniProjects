@@ -40,7 +40,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         AddAccount();
                         break;
                     case 2:
-                        //DepositMoney();
+                        DepositMoney();
                         break;
                     case 3:
                         //WithdrawMoney();
@@ -110,11 +110,40 @@ namespace MiniProject1_BankingManagementConsoleApp
             }
         }
 
-        //static void DepositMoney()
-        //{
-            
+        static void DepositMoney()
+        {
+            Console.Write("Enter Account Number: ");
+            string customerAccount = Console.ReadLine();
 
-        //}
+            int index = accountNumbers.IndexOf(customerAccount);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Account number not found.");
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Add deposit amount to your accoun: ");
+                double depositAmount = Convert.ToDouble(Console.ReadLine());
+
+                if (depositAmount < 0)
+                {
+                    Console.WriteLine("The amount cannot be negative.");
+                    return;
+                }
+
+                balances[index] += depositAmount;
+                Console.WriteLine("Deposit Successful! New Balance: " + balances[index]);
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid amount input");
+            }
+
+        }
 
         //static void WithdrawMoney()
         //{
