@@ -49,7 +49,7 @@ namespace MiniProject1_BankingManagementConsoleApp
                         ShowBalance();
                         break;
                     case 5:
-                        //TransferAmount();
+                        TransferAmount();
                         break;
                     case 6:
                         // TODO: call your first custom service function here
@@ -204,10 +204,63 @@ namespace MiniProject1_BankingManagementConsoleApp
             Console.WriteLine($"Your balance is: {balances[index]}");
         }
 
-        //static void TransferAmount()
-        //{
-        //    // TODO: implement this service (see Section 3 requirements)
-        //}
+        static void TransferAmount()
+        {
+            Console.Write("Enter the sender's account number: ");
+            string senderAccount = Console.ReadLine();
+
+            Console.Write("Enter the receiver's account number: ");
+            string receiverAccount = Console.ReadLine();
+
+            // Check the avalilability of the accounts 
+            int senderIndex = accountNumbers.IndexOf(senderAccount);
+            int receverIndex = accountNumbers.IndexOf(receiverAccount);
+
+            if (senderIndex == -1)
+            {
+                Console.WriteLine("The sender's account number not found.");
+                return;
+            }
+            else if (receverIndex == -1)
+            {
+                Console.WriteLine("The recever's account number not found.");
+                return;
+            }
+
+            //check if the amount is valid 
+            try
+            {
+                Console.WriteLine("Enter transfer amount: ");
+                double transferAmount = Convert.ToDouble(Console.ReadLine());
+
+                if (transferAmount < 0)
+                {
+                    Console.WriteLine("The amount cannot be negative.");
+                    return;
+                }
+                else if (balances[senderIndex] < transferAmount)
+                {
+                    Console.WriteLine("The amount cannot be more than your balance.");
+                    return;
+                }
+
+                // Subtract the amount from the sender's balance and add it to the receiver's balance
+                balances[senderIndex] -= transferAmount;
+                balances[receverIndex] += transferAmount;
+
+                // Display the result 
+                Console.WriteLine("---Transfer Successful!---");
+                Console.WriteLine("The sender new balance is: " + balances[senderIndex]);
+                Console.WriteLine("The resever new balance is: " + balances[receverIndex]);
+
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid amount input");
+            }
+
+        }
         //// TODO: write two more void, no-parameter functions here for
         //// your own custom services (option 6 and option 7)
     }
